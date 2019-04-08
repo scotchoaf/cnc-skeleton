@@ -17,10 +17,10 @@ variables:
   default: hi there
   type_hint: dropdown
   dd_list:
-    - key: key_0001
-      value: test_value
-    - key: key_0002
-      value: test_value
+    - key: Option 1
+      value: selected_value_key_0001
+    - key: Option 2
+      value: some_other_value
 - name: example_password
   description: example_password
   default:

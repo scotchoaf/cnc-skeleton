@@ -60,11 +60,14 @@ class ExampleAppView(CNCBaseFormView):
         self.save_value_to_workflow('var_name_again', var_name_again_reverse)
 
         # and call our super to continue processing
-        super().form_valid(form)
+        return super().form_valid(form)
 
 
 # Again override the baseformview as we are only building a workflow here
 class ExampleAppPasswordView(ProvisionSnippetView):
+
+    def get_snippet(self):
+        return self.snippet
 
     # this method allows us to customize what is shown to the user beyond what is present in the loaded skillet
     # 'variables' section
@@ -93,8 +96,8 @@ class ExampleAppPasswordView(ProvisionSnippetView):
 
         if example_password != password_2:
             # Send an error message back to the user
-            messages.add_message(self.request, messages.ERROR, 'A Repository with this name already exists')
-            return HttpResponseRedirect('repos')
+            messages.add_message(self.request, messages.ERROR, 'Passwords do not match!')
+            return HttpResponseRedirect('workflow00')
 
         print('Got some vars here!')
         print(f'Found value for var_name: {var_name}')

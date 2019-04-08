@@ -29,14 +29,8 @@ views:
   - name: workflow01
     class: ExampleAppPasswordView
     attributes:
-      next_url: example_provision
+      snippet: simple_example
       fields_to_render:
         - example_password
-
-  - name: example_provision
-    class: ExampleProvisionView
-
-
-
 
 
