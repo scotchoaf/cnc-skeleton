@@ -1,0 +1,29 @@
+name: simple_example
+label: Example App Skillet
+description: Basic example skillet
+type: template
+extends:
+
+labels:
+    some_key: some_value
+
+variables:
+- name: var_name
+  description: Variable Description
+  default: here is a default value
+  type_hint: text
+- name: var_name_again
+  description: Another Variable
+  default: hi there
+  type_hint: dropdown
+  dd_list:
+    - key: key_0001
+      value: test_value
+    - key: key_0002
+      value: test_value
+- name: example_password
+  description: example_password
+  default:
+  type_hint: password
+
+snippets:

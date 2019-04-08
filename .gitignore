@@ -1,3 +1,15 @@
+.idea
+cnc/db.sqlite3
+venv*
+.DS_Store
+**/.cnc_plan
+
+**/snippets/**/
+!**/snippets/app
+!**/snippets/app/**
+!**/snippets/app/**/*
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
