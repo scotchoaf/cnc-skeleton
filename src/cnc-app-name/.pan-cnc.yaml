@@ -12,6 +12,7 @@ views:
       title: Skillet
       description: Example CNC Application
       documentation_link: https://github.com/scotchoaf/cnc-skeleton/blob/master/src/cnc-app-name/.pan-cnc.yaml
+      next: workflow00
 
   - name: workflow00
     class: ExampleAppView

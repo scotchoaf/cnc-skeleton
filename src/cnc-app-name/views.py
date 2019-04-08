@@ -83,7 +83,9 @@ class ExampleAppPasswordView(ProvisionSnippetView):
 
     # the user has now completed the form and we have the results
     def form_valid(self, form):
-        # Everything the user has entered will be avabile here in the 'workflow'
+        # Everything the user has entered will be available here in the 'workflow'
+        # Note that any 'variable' entries defined in the .meta-cnc snippet will
+        # be automatically added to the session workflow
         workflow = self.get_workflow()
 
         # get the values from the user submitted here
@@ -91,8 +93,11 @@ class ExampleAppPasswordView(ProvisionSnippetView):
         var_name_again = workflow.get('var_name_again')
         example_password = workflow.get('example_password')
 
-        # we can also get any items we added to the form dynamically
-        password_2 = workflow.get('password_2')
+        # to access variables that were not defined in the snippet
+        # you can grab them directly from the POST on the request object
+        password_2 = self.request.POST['password_2']
+
+        print(f'checking if {example_password} matches {password_2}')
 
         if example_password != password_2:
             # Send an error message back to the user

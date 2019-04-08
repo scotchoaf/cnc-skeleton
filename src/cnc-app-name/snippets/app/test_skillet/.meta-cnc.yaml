@@ -27,3 +27,4 @@ variables:
   type_hint: password
 
 snippets:
+  - file: test_template.j2
