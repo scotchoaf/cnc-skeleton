@@ -1,5 +1,8 @@
 # cnc-skeleton
-Canned skeleton setup for pan-cnc
+Canned skeleton setup for pan-cnc. This repo can be used as a starting point to build a new CNC application. CNC is a 
+library that makes it easy to build API driven web based applications. With this you can quickly build web-forms
+to populate API payloads, generate XML fragments for PAN-OS API calls, or spin up infra using terraform. The operator
+of the application only interacts with the simple menu system and is abstracted away from the underlying technology. 
 
 For complete details, see the [PAN-CNC app.](https://github.com/PaloAltoNetworks/pan-cnc/blob/master/docs/Installation.md)
 on [Github](www.github.com).
