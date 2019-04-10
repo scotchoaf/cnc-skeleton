@@ -1,30 +1,53 @@
+# Every skillet requires a unique name
 name: simple_example
+
+# label is the label that will be seen by the users in the application
 label: Example App Skillet
-description: Basic example skillet
+
+# a description will appear in the 'help' overlay and should give the user some idea of what this skillet will do
+description: >
+  Basic example skillet. This Skillet is of type 'template' which means its action is to compile and display the
+  test_template.j2 file.
+
+# the type of skillet determines what action this skillet will take. Some examples are 'panos', 'panoraoa',
+# 'panorana-gpcs', 'python3', 'rest', 'template', and 'terraform'
 type: template
+
+# Some skillets may extend another skillet. in the panos case, this means the parent skillet will be loaded first
+# followed by this one. Parents are resolved recursively until all extends have been satisfied.
 extends:
 
+# labels are an externsible way to inform that application about some special attributes of this skillet. For example,
+# then panos-bootstrapper-ui application uses the 'skillet_category' label to determine if this skillet can be used
+# as a bootstrap.xml template inside the bootstrap archive. Another common label is 'collection' which informs the
+# panhandler application how skillets should be grouped.
+# see the pan_cnc/lib/snippet_utils.py library for details
 labels:
     some_key: some_value
 
+# variables will be shown to the user as a web form. For details see the panhandler documentaiton for more information
+# about this structure https://github.com/PaloAltoNetworks/panhandler/blob/master/docs/metadata_configuration.rst
 variables:
-- name: var_name
-  description: Variable Description
-  default: here is a default value
-  type_hint: text
-- name: var_name_again
-  description: Another Variable
-  default: hi there
-  type_hint: dropdown
-  dd_list:
-    - key: Option 1
-      value: selected_value_key_0001
-    - key: Option 2
-      value: some_other_value
-- name: example_password
-  description: example_password
-  default:
-  type_hint: password
+  - name: var_name
+    description: Variable Description
+    default: here is a default value
+    type_hint: text
+  - name: var_name_again
+    description: Another Variable
+    default: hi there
+    type_hint: dropdown
+    dd_list:
+      - key: Option 1
+        value: selected_value_key_0001
+      - key: Option 2
+        value: some_other_value
+  - name: example_password
+    description: example_password
+    default:
+    type_hint: password
 
+# snippets are bits of templates or XML configuration depending on the skillet type. Each type has it's own rules for
+# how each item in the snippet list is handled. Refer here for details:
+# https://github.com/PaloAltoNetworks/panhandler/blob/master/docs/metadata_configuration.rst
 snippets:
   - file: test_template.j2

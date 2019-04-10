@@ -63,7 +63,11 @@ class ExampleAppView(CNCBaseFormView):
         return super().form_valid(form)
 
 
-# Again override the baseformview as we are only building a workflow here
+# Again override the ProvisionSnippetView as we are only building a workflow here.
+# CNCBaseFormView will only display the form and perform a redirect after 'form_valid'
+# however, ProvisionSnippetView will actually redirect to another CNC class based in the skillet type
+# I.e. this is where the logic of how to interact with APIs, PAN-OS devies, render templates, etc is all done
+# You usually want a child of this class to the 'last' in a chain if you need extended logic
 class ExampleAppPasswordView(ProvisionSnippetView):
 
     def get_snippet(self):
