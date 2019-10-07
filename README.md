@@ -37,6 +37,14 @@ git submodule add -b master git@github.com:PaloAltoNetworks/pan-cnc.git cnc
 
 You should now have two top level directories: `src` and `cnc`. 
 
+Note if the cnc directory is already present, you just need to init the submodule like so:
+
+```bash
+
+git submodule init
+
+```
+
 ## Running Pan-CNC
 
 #### 1. Build the database
