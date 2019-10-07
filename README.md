@@ -35,6 +35,24 @@ git submodule add -b master git@github.com:PaloAltoNetworks/pan-cnc.git cnc
 
 ```
 
+You may have to do
+
+```bash
+
+git submodule update --init
+
+```
+
+inside the cnc directory to activate and pull the submodule content to cnc. First time user may also require a python
+virtual environment and install of the cnc requirements
+
+```bash
+
+cd cnc
+pip install -r requirements.txt
+
+```
+
 You should now have two top level directories: `src` and `cnc`. 
 
 ## Running Pan-CNC
@@ -63,8 +81,7 @@ You can launch this new app with the following commands:
 
 ```bash
 cd cnc
-celery -A pan_cnc worker --loglevel=info  &
-./manage.py runserver 8080
+celery -A pan_cnc worker --loglevel=info  & ./manage.py runserver 8080
 
 ```
 
