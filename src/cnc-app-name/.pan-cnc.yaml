@@ -5,6 +5,24 @@
 # name is used to identify this application inside the CNC framework
 name: skillet
 
+repositories:
+  - name: Iron-Skillet-v81
+    url: https://github.com/PaloAltoNetworks/iron-skillet.git
+    branch: panos_v8.1
+    destination_directory: iron_skillet_v81
+  - name: Iron-Skillet-v90
+    url: https://github.com/PaloAltoNetworks/iron-skillet.git
+    branch: panos_v9.0
+    destination_directory: iron_skillet_v90
+  - name: http-response-codes
+    url: https://github.com/ceskillets/SecOps-HTTP-Response-Codes.git
+    branch: master
+    destination_directory: http_response_codes
+  - name: brute-force-exception
+    url: https://github.com/PaloAltoNetworks/iron-skillet.git
+    branch: bruteForceException
+    destination_directory: brute_force_exception
+
 # views is a list of dicts that will configure URL routing within the application. Each view may also optionally
 # have a menu entry configured using the 'menu' and 'menu_option' attributes
 views:
@@ -15,7 +33,7 @@ views:
   # ProvisionSnippetView
   - name: ''
     class: CNCView # this corresponds to a CNC base class defined in pan_cnc/views.py or one of your own in views.py
-    menu: Example # this top level menu entry
+    menu: Home # this top level menu entry
     menu_option: Welcome # the clickable item in the top level menu entry
     attributes: # attributes defined here will set class level attributes in the class defined above.
       template_name: pan_cnc/welcome.html  # this sets the template_name class level attribute
@@ -25,19 +43,6 @@ views:
       documentation_link: https://github.com/scotchoaf/cnc-skeleton/blob/master/src/cnc-app-name/.pan-cnc.yaml
       next: workflow00
 
-  - name: workflow00
-    class: ExampleAppView # this is a view defined in cnc-app-name/views.py which bases CNCBaseFormView
-    menu: Example
-    menu_option: Test Menu Option
-    attributes:
-      header: Step 1      # Header to render in the HTML template
-      title: Select Configuration Option  # title to render in the HTML template
-      snippet: simple_example  # this is the name of a skillet to load. CNCBaseFormView will use this to render a form
-      fields_to_render:   # logic in CNCBaseFormView will only show variables defined in the snippet if they match this
-        - var_name        # list. In this case, we only want to show the user these two fields out of the three defined
-        - var_name_again
-      next_url: workflow01    # after the user submits the form, where should we send them? This matches the 'name'
-                              # of another view
   - name: workflow01      # another view. Note this one does not have a menu entry or menu item defined
     class: ExampleAppPasswordView   # another class defined in cnc-app-name/views.py
     attributes:           # class level attributes to override and set
@@ -45,4 +50,35 @@ views:
       fields_to_render:           # again, only show this one single field out of the 3 defined in this snippet
         - example_password
 
+  - name: loadIronSkillet
+    class: ExampleAppView # this is a view defined in cnc-app-name/views.py which bases CNCBaseFormView
+    menu: IronSkillet
+    menu_option: Load IronSkillet
+    attributes:
+      header: Step 1      # Header to render in the HTML template
+      title: Select Configuration Option  # title to render in the HTML template
+      snippet: skillet_panos_v90  # this is the name of a skillet to load. CNCBaseFormView will use this to render a form
+      next_url: workflow01    # after the user submits the form, where should we send them? This matches the 'name'
+                              # of another view
 
+  - name: loadHTTPcodes
+    class: ExampleAppView # this is a view defined in cnc-app-name/views.py which bases CNCBaseFormView
+    menu: Add-Ons
+    menu_option: HTTP response codes
+    attributes:
+      header: Step 1      # Header to render in the HTML template
+      title: Select Configuration Option  # title to render in the HTML template
+      snippet: HTTPStatusCodes  # this is the name of a skillet to load. CNCBaseFormView will use this to render a form
+      next_url: workflow01    # after the user submits the form, where should we send them? This matches the 'name'
+                              # of another view
+
+  - name: loadBruteForceExceptions
+    class: ExampleAppView # this is a view defined in cnc-app-name/views.py which bases CNCBaseFormView
+    menu: Add-Ons
+    menu_option: Brute Force Exceptions
+    attributes:
+      header: Step 1      # Header to render in the HTML template
+      title: Select Configuration Option  # title to render in the HTML template
+      snippet: bruteForceExceptions_panos_xml_v90  # this is the name of a skillet to load. CNCBaseFormView will use this to render a form
+      next_url: workflow01    # after the user submits the form, where should we send them? This matches the 'name'
+                              # of another view
