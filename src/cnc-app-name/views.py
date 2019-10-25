@@ -76,9 +76,9 @@ class ExampleAppPasswordView(ProvisionSnippetView):
     # this method allows us to customize what is shown to the user beyond what is present in the loaded skillet
     # 'variables' section
 
-    def generate_dynamic_form(self):
+    def generate_dynamic_form(self, data=None):
         # let's first get the generated from from our base class
-        dynamic_form = super().generate_dynamic_form()
+        dynamic_form = super().generate_dynamic_form(data)
 
         dynamic_form.fields['password_2'] = forms.CharField(widget=forms.PasswordInput(render_value=True),
                                                             initial='')

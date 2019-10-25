@@ -38,6 +38,15 @@ views:
         - var_name_again
       next_url: workflow01    # after the user submits the form, where should we send them? This matches the 'name'
                               # of another view
+  - name: test_appdir
+    class: ProvisionSnippetView # this is a view defined in cnc-app-name/views.py which bases CNCBaseFormView
+    menu: Example
+    menu_option: Another Test
+    attributes:
+      header: Step 1      # Header to render in the HTML template
+      title: Select Configuration Option  # title to render in the HTML template
+      snippet: simple_example  # this is the name of a skillet to load. CNCBaseFormView will use this to render a form
+
   - name: workflow01      # another view. Note this one does not have a menu entry or menu item defined
     class: ExampleAppPasswordView   # another class defined in cnc-app-name/views.py
     attributes:           # class level attributes to override and set
