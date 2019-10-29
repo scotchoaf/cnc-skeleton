@@ -29,9 +29,20 @@ All your code will live in `src/$APP_NAME/views.py`
 
 #### Install CNC as a submodule to your repo
 
+If you are starting from scratch, you will need to add the CNC library as a git submodule:
+
 ```bash
 
 git submodule add -b master git@github.com:PaloAltoNetworks/pan-cnc.git cnc
+
+```
+
+However, if you are cloning this repo and starting here, this submodule already exists. In which case, you need
+to do the following:
+
+```bash
+
+git submodule update --init
 
 ```
 
