@@ -17,7 +17,7 @@ cnc-skeleton/
     └── cnc-app-name
         ├── .pan-cnc.yaml
         ├── snippets
-        │   └── README.md
+        │   └── README.md
         └── views.py
 ```
 
@@ -29,20 +29,27 @@ All your code will live in `src/$APP_NAME/views.py`
 
 #### Install CNC as a submodule to your repo
 
-If you are starting from scratch, you will need to add the CNC library as a git submodule:
-
 ```bash
 
 git submodule add -b master git@github.com:PaloAltoNetworks/pan-cnc.git cnc
 
 ```
 
-However, if you are cloning this repo and starting here, this submodule already exists. In which case, you need
-to do the following:
+You may have to do
 
 ```bash
 
 git submodule update --init
+
+```
+
+inside the cnc directory to activate and pull the submodule content to cnc. First time user may also require a python
+virtual environment and install of the cnc requirements
+
+```bash
+
+cd cnc
+pip install -r requirements.txt
 
 ```
 
@@ -74,10 +81,10 @@ You can launch this new app with the following commands:
 
 ```bash
 cd cnc
-celery -A pan_cnc worker --loglevel=info  &
-./manage.py runserver 8080
+celery -A pan_cnc worker --loglevel=info  & ./manage.py runserver 8080
 
 ```
 
 This will start a background task worker and then start the application on port `8080`. You can login using the 
 `username` and `password` specified above. 
+
