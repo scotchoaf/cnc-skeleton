@@ -17,7 +17,7 @@ type: template
 # followed by this one. Parents are resolved recursively until all extends have been satisfied.
 extends:
 
-# labels are an externsible way to inform that application about some special attributes of this skillet. For example,
+# labels are an extensible way to inform that application about some special attributes of this skillet. For example,
 # then panos-bootstrapper-ui application uses the 'skillet_category' label to determine if this skillet can be used
 # as a bootstrap.xml template inside the bootstrap archive. Another common label is 'collection' which informs the
 # panhandler application how skillets should be grouped.

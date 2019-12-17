@@ -2,8 +2,21 @@
 # and configure the URL routing for each. To completely build a CNC app, you must configure this file along with
 # your code in views.py
 
-# name is used to identify this application inside the CNC framework
-name: skillet
+# name is used to identify this application inside the CNC framework - This name must match the actual directory
+# name that this app is located in under the 'src' directory.
+name: cnc-app-name
+
+# This bit will load these repositories on app start up. This is useful to add your own Skillets from another repo
+# and reference them below
+repositories:
+  - name: Iron-Skillet 9.0
+    url: https://github.com/PaloAltoNetworks/iron-skillet.git
+    branch: panos_v9.0
+    destination_directory: ironskillet
+  - name: Iron-Skillet 8.0
+    url: https://github.com/PaloAltoNetworks/iron-skillet.git
+    branch: panos_v8.0
+    destination_directory: ironskillet8
 
 # views is a list of dicts that will configure URL routing within the application. Each view may also optionally
 # have a menu entry configured using the 'menu' and 'menu_option' attributes
@@ -11,19 +24,19 @@ views:
 
   # Each app should contain the '' default route. name here corresponds to the url path that will route the request
   # to the class based view defined in the 'class' attribute. The class can be any Django 2.0+ class based view
-  # but for convienence you should base one of the provided CNC base classes like CNCView, CNCBaseFormView, or
+  # but for convenience you should base one of the provided CNC base classes like CNCView, CNCBaseFormView, or
   # ProvisionSnippetView
   - name: ''
-    class: CNCView # this corresponds to a CNC base class defined in pan_cnc/views.py or one of your own in views.py
-    menu: Example # this top level menu entry
-    menu_option: Welcome # the clickable item in the top level menu entry
-    attributes: # attributes defined here will set class level attributes in the class defined above.
+    class: CNCView  # this corresponds to a CNC base class defined in pan_cnc/views.py or one of your own in views.py
+    menu: Example   # this top level menu entry
+    menu_option: Welcome  # the clickable item in the top level menu entry
+    attributes:     # attributes defined here will set class level attributes in the class defined above.
       template_name: pan_cnc/welcome.html  # this sets the template_name class level attribute
-    context:  # context will set these attributes in the context dict that is sent to the HTML template for rendering
-      title: Skillet   # the default base.html template uses these to set the title, header, description, etc
+    context:    # context will set these attributes in the context dict that is sent to the HTML template for rendering
+      title: Skillet  # the default base.html template uses these to set the title, header, description, etc
       description: Example CNC Application
       documentation_link: https://github.com/scotchoaf/cnc-skeleton/blob/master/src/cnc-app-name/.pan-cnc.yaml
-      next: workflow00
+      next: workflow00  # next adds a link to the 'get started' button
 
   - name: workflow00
     class: ExampleAppView # this is a view defined in cnc-app-name/views.py which bases CNCBaseFormView
@@ -38,11 +51,35 @@ views:
         - var_name_again
       next_url: workflow01    # after the user submits the form, where should we send them? This matches the 'name'
                               # of another view
+
   - name: workflow01      # another view. Note this one does not have a menu entry or menu item defined
     class: ExampleAppPasswordView   # another class defined in cnc-app-name/views.py
     attributes:           # class level attributes to override and set
       snippet: simple_example     # again, load this snippet for use to show to the user
       fields_to_render:           # again, only show this one single field out of the 3 defined in this snippet
         - example_password
+
+  # if you do not require any special logic after the form has been submitted, you can provide a list of
+  # skillets and their corresponding menu entries like so and use the base ProvisionSnippetView
+  - name: is_set_cmd
+    class: ProvisionSnippetView # this is a CNC base class that handles all the Skillet related logic
+    menu: Iron-Skillet      # this is a menu entry that will be added to the top navigation bar
+    menu_option: Set Commands for 9.0 # this is the sub-menu entry for this skillet
+    attributes:
+      snippet: skillet_set_command_panos_v90 # this is the name of a skillet to load.
+
+  - name: is_set_cmd_8
+    class: ProvisionSnippetView
+    menu: Iron-Skillet
+    menu_option: Set Commands for 8.0
+    attributes:
+      snippet: skillet_setcommand_panos_v80
+
+  - name: is_full_cmd
+    class: ProvisionSnippetView
+    menu: Iron-Skillet
+    menu_option: Full XML for 9.0
+    attributes:
+      snippet: skillet_full_panos_v90
 
 
